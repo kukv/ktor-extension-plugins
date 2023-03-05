@@ -7,7 +7,7 @@ plugins {
 allprojects {
 
     group = "jp.kukv.ktor-extensions-plugins"
-    version = "0.0.5"
+    version = "0.0.6"
 
     repositories {
         mavenCentral()
@@ -19,21 +19,21 @@ subprojects {
 
     apply(plugin = "org.gradle.maven-publish")
 
-    publishing {
-        publications {
-            create<MavenPublication>("maven") {
-                groupId = project.group.toString()
-                artifactId = project.name
-                version = project.version.toString()
+    afterEvaluate {
+        publishing {
+            publications {
+                create<MavenPublication>("maven") {
+                    groupId = project.group.toString()
+                    artifactId = project.name
+                    version = project.version.toString()
 
-                afterEvaluate {
                     from(components["java"])
-                }
 
-                pom {
-                    name.set("ktor-extension-plugins")
-                    description.set("ktor-extension-plugins")
-                    url.set("https://github.com/kukv/ktor-extension-plugins")
+                    pom {
+                        name.set("ktor-extension-plugins")
+                        description.set("ktor-extension-plugins")
+                        url.set("https://github.com/kukv/ktor-extension-plugins")
+                    }
                 }
             }
         }
