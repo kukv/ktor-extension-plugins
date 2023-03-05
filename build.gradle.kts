@@ -1,11 +1,37 @@
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     alias(libs.plugins.spotless)
+    `maven-publish`
 }
 
 allprojects {
+
+    group = "jp.kukv.ktor-extensions-plugins"
+    version = "0.0.1"
+
     repositories {
         mavenCentral()
+        maven("https://jitpack.io")
+    }
+}
+
+subprojects {
+
+    apply(plugin = "org.gradle.maven-publish")
+
+    publishing {
+        publications {
+            create<MavenPublication>("maven") {
+                groupId = project.group.toString()
+                artifactId = project.name
+                version = project.version.toString()
+                pom {
+                    name.set("Ktor Environment")
+                    description.set("Ktor plugin to Injecting application config")
+                    url.set("https://github.com/kukv/ktor-environment")
+                }
+            }
+        }
     }
 }
 
