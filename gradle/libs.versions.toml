@@ -1,0 +1,7 @@
+[plugins]
+#####################################################
+# code format plugin
+#####################################################
+spotless = { id = "com.diffplug.spotless", version = "6.16.0" }
+
+[libraries]
