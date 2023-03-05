@@ -7,7 +7,7 @@ plugins {
 allprojects {
 
     group = "jp.kukv.ktor-extensions-plugins"
-    version = "0.0.6"
+    version = "0.0.7"
 
     repositories {
         mavenCentral()
@@ -17,7 +17,16 @@ allprojects {
 
 subprojects {
 
-    apply(plugin = "org.gradle.maven-publish")
+    apply<JavaLibraryPlugin>()
+    apply<MavenPublishPlugin>()
+
+    tasks {
+        val sourcesJar by creating(Jar::class) {
+            val sourceSets: SourceSetContainer by project
+            archiveClassifier.set("sources")
+            from(sourceSets["main"].allSource)
+        }
+    }
 
     afterEvaluate {
         publishing {
@@ -27,7 +36,9 @@ subprojects {
                     artifactId = project.name
                     version = project.version.toString()
 
-                    from(components["java"])
+                    from(components["kotlin"])
+
+                    artifact(tasks["sourcesJar"])
 
                     pom {
                         name.set("ktor-extension-plugins")
