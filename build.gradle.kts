@@ -7,7 +7,7 @@ plugins {
 allprojects {
 
     group = "jp.kukv.ktor-extensions-plugins"
-    version = "0.0.4"
+    version = "0.0.5"
 
     repositories {
         mavenCentral()
@@ -25,10 +25,15 @@ subprojects {
                 groupId = project.group.toString()
                 artifactId = project.name
                 version = project.version.toString()
+
+                afterEvaluate {
+                    from(components["java"])
+                }
+
                 pom {
-                    name.set("Ktor Environment")
-                    description.set("Ktor plugin to Injecting application config")
-                    url.set("https://github.com/kukv/ktor-environment")
+                    name.set("ktor-extension-plugins")
+                    description.set("ktor-extension-plugins")
+                    url.set("https://github.com/kukv/ktor-extension-plugins")
                 }
             }
         }
