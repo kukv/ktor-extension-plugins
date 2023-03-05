@@ -1,53 +1,16 @@
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     alias(libs.plugins.spotless)
-    `maven-publish`
 }
 
 allprojects {
 
     group = "jp.kukv.ktor-extensions-plugins"
-    version = "0.0.7"
+    version = "0.0.8"
 
     repositories {
         mavenCentral()
         maven("https://jitpack.io")
-    }
-}
-
-subprojects {
-
-    apply<JavaLibraryPlugin>()
-    apply<MavenPublishPlugin>()
-
-    tasks {
-        val sourcesJar by creating(Jar::class) {
-            val sourceSets: SourceSetContainer by project
-            archiveClassifier.set("sources")
-            from(sourceSets["main"].allSource)
-        }
-    }
-
-    afterEvaluate {
-        publishing {
-            publications {
-                create<MavenPublication>("maven") {
-                    groupId = project.group.toString()
-                    artifactId = project.name
-                    version = project.version.toString()
-
-                    from(components["kotlin"])
-
-                    artifact(tasks["sourcesJar"])
-
-                    pom {
-                        name.set("ktor-extension-plugins")
-                        description.set("ktor-extension-plugins")
-                        url.set("https://github.com/kukv/ktor-extension-plugins")
-                    }
-                }
-            }
-        }
     }
 }
 
