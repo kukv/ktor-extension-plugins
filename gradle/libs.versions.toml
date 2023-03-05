@@ -14,7 +14,7 @@ spotless = { id = "com.diffplug.spotless", version = "6.16.0" }
 # ktor Libraries
 #####################################################
 # server
-ktor-server-core = { module = "io.ktor:ktor-server-core", version = "2.2.3" }
+ktor-server-core = { module = "io.ktor:ktor-server-core", version = "2.2.4" }
 
 #####################################################
 # kotlinX Libraries
