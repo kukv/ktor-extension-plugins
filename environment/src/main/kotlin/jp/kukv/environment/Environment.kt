@@ -68,7 +68,7 @@ class Environment private constructor(private val delegate: ApplicationConfig) {
         Byte::class -> value.toByte()
         Short::class -> value.toShort()
         Int::class -> value.toInt()
-        Long::class -> value.toBoolean()
+        Long::class -> value.toLong()
         Float::class -> value.toFloat()
         Double::class -> value.toDouble()
         Boolean::class -> value.toBoolean()
