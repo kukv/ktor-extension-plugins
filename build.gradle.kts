@@ -1,13 +1,16 @@
+import org.jetbrains.dokka.gradle.DokkaPlugin
+
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     alias(libs.plugins.spotless)
+    alias(libs.plugins.kotlin.dokka)
     `maven-publish`
 }
 
 allprojects {
 
     group = "com.github.kukv"
-    version = "0.0.9"
+    version = "0.1.0"
 
     repositories {
         mavenCentral()
@@ -19,12 +22,25 @@ subprojects {
 
     apply<JavaLibraryPlugin>()
     apply<MavenPublishPlugin>()
+    apply<DokkaPlugin>()
 
     tasks {
         val sourcesJar by creating(Jar::class) {
             val sourceSets: SourceSetContainer by project
             archiveClassifier.set("sources")
             from(sourceSets["main"].allSource)
+        }
+
+        register<Jar>("dokkaHtmlJar") {
+            dependsOn(dokkaHtml)
+            from(dokkaHtml.flatMap { it.outputDirectory })
+            archiveClassifier.set("html-docs")
+        }
+
+        register<Jar>("dokkaJavadocJar") {
+            dependsOn(dokkaJavadoc)
+            from(dokkaJavadoc.flatMap { it.outputDirectory })
+            archiveClassifier.set("javadoc")
         }
     }
 

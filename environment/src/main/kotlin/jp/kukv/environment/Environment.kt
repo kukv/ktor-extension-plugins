@@ -2,6 +2,7 @@ package jp.kukv.environment
 
 import io.ktor.server.config.ApplicationConfig
 import io.ktor.server.config.ApplicationConfigValue
+import io.ktor.util.InternalAPI
 import kotlinx.datetime.toLocalDate
 import kotlinx.datetime.toLocalDateTime
 import kotlinx.datetime.toLocalTime
@@ -17,29 +18,44 @@ import kotlinx.datetime.LocalDate as KLocalDate
 import kotlinx.datetime.LocalDateTime as KLocalDateTime
 import kotlinx.datetime.LocalTime as KLocalTime
 
+@InternalAPI
 class Environment private constructor(private val delegate: ApplicationConfig) {
 
-    fun <T> getTypedPropertiesOrEmptyList(key: String, clazz: KClass<*>): List<T> =
+    @PublishedApi
+    @InternalAPI
+    internal fun <T> getTypedPropertiesOrEmptyList(key: String, clazz: KClass<*>): List<T> =
         getTypedPropertiesOrNull<T>(key, clazz) ?: emptyList()
 
-    fun <T> getTypedPropertyOrDefault(key: String, defaultValue: T, clazz: KClass<*>): T =
+    @PublishedApi
+    @InternalAPI
+    internal fun <T> getTypedPropertyOrDefault(key: String, defaultValue: T, clazz: KClass<*>): T =
         getTypedPropertyOrNull<T>(key, clazz) ?: defaultValue
 
-    fun <T> getTypedPropertiesOrDefault(key: String, defaultValue: List<T>, clazz: KClass<*>): List<T> =
+    @PublishedApi
+    @InternalAPI
+    internal fun <T> getTypedPropertiesOrDefault(key: String, defaultValue: List<T>, clazz: KClass<*>): List<T> =
         getTypedPropertiesOrNull<T>(key, clazz) ?: defaultValue
 
-    fun <T> getTypedPropertyOrThrow(key: String, clazz: KClass<*>): T =
+    @PublishedApi
+    @InternalAPI
+    internal fun <T> getTypedPropertyOrThrow(key: String, clazz: KClass<*>): T =
         getTypedPropertyOrNull<T>(key, clazz) ?: throw KeyNotFoundException("Property $key does not exist")
 
-    fun <T> getTypedPropertiesOrThrow(key: String, clazz: KClass<*>): List<T> =
+    @PublishedApi
+    @InternalAPI
+    internal fun <T> getTypedPropertiesOrThrow(key: String, clazz: KClass<*>): List<T> =
         getTypedPropertiesOrNull<T>(key, clazz) ?: throw KeyNotFoundException("Property $key does not exist")
 
-    fun <T> getTypedPropertyOrNull(key: String, clazz: KClass<*>): T? {
+    @PublishedApi
+    @InternalAPI
+    internal fun <T> getTypedPropertyOrNull(key: String, clazz: KClass<*>): T? {
         val value = getString(key) ?: return null
         return cast(value, clazz)
     }
 
-    fun <T> getTypedPropertiesOrNull(key: String, clazz: KClass<*>): List<T>? {
+    @PublishedApi
+    @InternalAPI
+    internal fun <T> getTypedPropertiesOrNull(key: String, clazz: KClass<*>): List<T>? {
         val values = getList(key) ?: return null
 
         return values.map { cast(it, clazz) }
