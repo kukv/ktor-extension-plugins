@@ -19,41 +19,58 @@ import kotlinx.datetime.LocalTime as KLocalTime
 
 class Environment private constructor(private val delegate: ApplicationConfig) {
 
+    fun <T> getTypedPropertiesOrEmptyList(key: String, clazz: KClass<*>): List<T> =
+        getTypedPropertiesOrNull<T>(key, clazz) ?: emptyList()
+
     fun <T> getTypedPropertyOrDefault(key: String, defaultValue: T, clazz: KClass<*>): T =
         getTypedPropertyOrNull<T>(key, clazz) ?: defaultValue
+
+    fun <T> getTypedPropertiesOrDefault(key: String, defaultValue: List<T>, clazz: KClass<*>): List<T> =
+        getTypedPropertiesOrNull<T>(key, clazz) ?: defaultValue
 
     fun <T> getTypedPropertyOrThrow(key: String, clazz: KClass<*>): T =
         getTypedPropertyOrNull<T>(key, clazz) ?: throw KeyNotFoundException("Property $key does not exist")
 
-    @Suppress("UNCHECKED_CAST")
+    fun <T> getTypedPropertiesOrThrow(key: String, clazz: KClass<*>): List<T> =
+        getTypedPropertiesOrNull<T>(key, clazz) ?: throw KeyNotFoundException("Property $key does not exist")
+
     fun <T> getTypedPropertyOrNull(key: String, clazz: KClass<*>): T? {
         val value = getString(key) ?: return null
-
-        return when (clazz) {
-            // kotlin primitive
-            String::class -> value
-            Byte::class -> value.toByte()
-            Short::class -> value.toShort()
-            Int::class -> value.toInt()
-            Long::class -> value.toBoolean()
-            Float::class -> value.toFloat()
-            Double::class -> value.toDouble()
-            Boolean::class -> value.toBoolean()
-            // java object
-            BigDecimal::class -> value.toBigDecimal()
-            BigInteger::class -> value.toBigInteger()
-            JLocalDate::class -> JLocalDate.parse(value)
-            JLocalDateTime::class -> JLocalDateTime.parse(value)
-            JLocalTime::class -> JLocalTime.parse(value)
-            // kotlin object
-            KLocalDate::class -> value.toLocalDate()
-            KLocalDateTime::class -> value.toLocalDateTime()
-            KLocalTime::class -> value.toLocalTime()
-            else -> throw ClassCastException("Type: [$clazz] not supported.")
-        } as T?
+        return cast(value, clazz)
     }
 
+    fun <T> getTypedPropertiesOrNull(key: String, clazz: KClass<*>): List<T>? {
+        val values = getList(key) ?: return null
+
+        return values.map { cast(it, clazz) }
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    private fun <T> cast(value: String, clazz: KClass<*>): T = when (clazz) {
+        // kotlin primitive
+        String::class -> value
+        Byte::class -> value.toByte()
+        Short::class -> value.toShort()
+        Int::class -> value.toInt()
+        Long::class -> value.toBoolean()
+        Float::class -> value.toFloat()
+        Double::class -> value.toDouble()
+        Boolean::class -> value.toBoolean()
+        // java object
+        BigDecimal::class -> value.toBigDecimal()
+        BigInteger::class -> value.toBigInteger()
+        JLocalDate::class -> JLocalDate.parse(value)
+        JLocalDateTime::class -> JLocalDateTime.parse(value)
+        JLocalTime::class -> JLocalTime.parse(value)
+        // kotlin object
+        KLocalDate::class -> value.toLocalDate()
+        KLocalDateTime::class -> value.toLocalDateTime()
+        KLocalTime::class -> value.toLocalTime()
+        else -> throw ClassCastException("Type: [$clazz] not supported.")
+    } as T
+
     private fun getString(key: String): String? = getApplicationConfigValue(key)?.getString()
+    private fun getList(key: String): List<String>? = getApplicationConfigValue(key)?.getList()
     private fun getApplicationConfigValue(key: String): ApplicationConfigValue? = delegate.propertyOrNull(key)
 
     companion object {
