@@ -15,7 +15,7 @@ internal object EnvironmentContext {
     @OptIn(InternalAPI::class)
     internal fun get(): Environment {
         if (!EnvironmentContext::env.isInitialized) {
-            throw NotInitializedException("Environment not initialized yet")
+            throw InitializationFailureException("Environment plugin not initialized yet")
         }
         return env
     }

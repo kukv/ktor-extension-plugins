@@ -95,7 +95,7 @@ class Environment private constructor(private val delegate: ApplicationConfig) {
 
         internal fun init(config: ApplicationConfig?): Environment {
             if (config == null) {
-                throw NotInitializedException("ApplicationConfig does not exist.")
+                throw InitializationFailureException("ApplicationConfig does not exist.")
             }
             log.info("Starting Environment Plugin")
             return Environment(config)
