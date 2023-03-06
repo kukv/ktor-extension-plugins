@@ -3,6 +3,7 @@
 # jetbrains plugin
 #####################################################
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version = "1.8.10" }
+kotlin-dokka = { id = "org.jetbrains.dokka", version = "1.8.10" }
 
 #####################################################
 # code format plugin
