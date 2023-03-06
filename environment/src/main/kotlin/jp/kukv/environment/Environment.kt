@@ -17,16 +17,16 @@ import kotlinx.datetime.LocalDate as KLocalDate
 import kotlinx.datetime.LocalDateTime as KLocalDateTime
 import kotlinx.datetime.LocalTime as KLocalTime
 
-public class Environment private constructor(private val delegate: ApplicationConfig) {
+class Environment private constructor(private val delegate: ApplicationConfig) {
 
-    public fun <T> getTypedPropertyOrDefault(key: String, defaultValue: T, clazz: KClass<*>): T =
+    fun <T> getTypedPropertyOrDefault(key: String, defaultValue: T, clazz: KClass<*>): T =
         getTypedPropertyOrNull<T>(key, clazz) ?: defaultValue
 
-    public fun <T> getTypedPropertyOrThrow(key: String, clazz: KClass<*>): T =
+    fun <T> getTypedPropertyOrThrow(key: String, clazz: KClass<*>): T =
         getTypedPropertyOrNull<T>(key, clazz) ?: throw KeyNotFoundException("Property $key does not exist")
 
     @Suppress("UNCHECKED_CAST")
-    public fun <T> getTypedPropertyOrNull(key: String, clazz: KClass<*>): T? {
+    fun <T> getTypedPropertyOrNull(key: String, clazz: KClass<*>): T? {
         val value = getString(key) ?: return null
 
         return when (clazz) {
