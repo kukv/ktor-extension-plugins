@@ -1,70 +1,50 @@
-import org.jetbrains.dokka.gradle.DokkaPlugin
+import org.jetbrains.dokka.DokkaConfiguration.Visibility
+import org.jetbrains.dokka.gradle.DokkaTaskPartial
 
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
+    alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.spotless)
     alias(libs.plugins.kotlin.dokka)
-    `maven-publish`
 }
 
 allprojects {
 
-    group = "com.github.kukv"
+    group = "jp.kukv"
     version = "0.1.0"
 
     repositories {
         mavenCentral()
-        maven("https://jitpack.io")
     }
 }
 
 subprojects {
 
-    apply<JavaLibraryPlugin>()
-    apply<MavenPublishPlugin>()
-    apply<DokkaPlugin>()
+    apply(plugin = "org.jetbrains.dokka")
 
-    tasks {
-        val sourcesJar by creating(Jar::class) {
-            val sourceSets: SourceSetContainer by project
-            archiveClassifier.set("sources")
-            from(sourceSets["main"].allSource)
-        }
-
-        register<Jar>("dokkaHtmlJar") {
-            dependsOn(dokkaHtml)
-            from(dokkaHtml.flatMap { it.outputDirectory })
-            archiveClassifier.set("html-docs")
-        }
-
-        register<Jar>("dokkaJavadocJar") {
-            dependsOn(dokkaJavadoc)
-            from(dokkaJavadoc.flatMap { it.outputDirectory })
-            archiveClassifier.set("javadoc")
+    tasks.withType<DokkaTaskPartial>().configureEach {
+        dokkaSourceSets.configureEach {
+            documentedVisibilities.set(setOf(Visibility.PUBLIC, Visibility.PROTECTED))
         }
     }
 
-    afterEvaluate {
-        publishing {
-            publications {
-                create<MavenPublication>("maven") {
-                    groupId = project.group.toString()
-                    artifactId = project.name
-                    version = project.version.toString()
-
-                    from(components["kotlin"])
-
-                    artifact(tasks["sourcesJar"])
-
-                    pom {
-                        name.set("ktor-extension-plugins")
-                        description.set("ktor-extension-plugins")
-                        url.set("https://github.com/kukv/ktor-extension-plugins")
-                    }
-                }
-            }
-        }
+    tasks.register<Jar>("dokkaHtmlJar") {
+        group = "documentation"
+        dependsOn(tasks.dokkaHtml)
+        from(tasks.dokkaHtml.flatMap { it.outputDirectory })
+        archiveClassifier.set("html-docs")
     }
+
+    tasks.register<Jar>("dokkaJavadocJar") {
+        group = "documentation"
+        dependsOn(tasks.dokkaJavadoc)
+        from(tasks.dokkaJavadoc.flatMap { it.outputDirectory })
+        archiveClassifier.set("javadoc")
+    }
+}
+
+tasks.dokkaHtmlMultiModule {
+    moduleName.set("Ktor Extension Plugins")
 }
 
 spotless {

@@ -89,7 +89,7 @@ class Environment private constructor(private val delegate: ApplicationConfig) {
     private fun getList(key: String): List<String>? = getApplicationConfigValue(key)?.getList()
     private fun getApplicationConfigValue(key: String): ApplicationConfigValue? = delegate.propertyOrNull(key)
 
-    companion object {
+    internal companion object {
 
         private val log = LoggerFactory.getLogger(Environment::class.java)
 

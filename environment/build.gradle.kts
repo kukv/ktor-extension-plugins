@@ -6,6 +6,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.kotlin.dokka)
 }
 
 dependencies {
@@ -19,14 +20,13 @@ dependencies {
     testImplementation(kotlin("test-junit5"))
 }
 
-tasks {
-    withType<KotlinCompile> {
-        kotlinOptions {
-            freeCompilerArgs = listOf("-Xjsr305=strict")
-            jvmTarget = "17"
-        }
+tasks.withType<KotlinCompile> {
+    kotlinOptions {
+        freeCompilerArgs = listOf("-Xjsr305=strict")
+        jvmTarget = "17"
     }
-    withType<Test> {
-        useJUnitPlatform()
-    }
+}
+
+tasks.withType<Test> {
+    useJUnitPlatform()
 }
