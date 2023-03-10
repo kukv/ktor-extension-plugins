@@ -22,9 +22,7 @@ fun Application.configuration() {
         modules(DIModules().module)
     }
 
-    install(EnvironmentPlugin) {
-        config = environment.config
-    }
+    install(EnvironmentPlugin)
 
     install(ContentNegotiation) {
         json(
