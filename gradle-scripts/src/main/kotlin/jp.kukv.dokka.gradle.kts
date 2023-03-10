@@ -9,7 +9,9 @@ plugins {
 
 subprojects {
 
-    apply(plugin = "org.jetbrains.dokka")
+    apply {
+        plugin("org.jetbrains.dokka")
+    }
 
     tasks {
         withType<DokkaTaskPartial> {

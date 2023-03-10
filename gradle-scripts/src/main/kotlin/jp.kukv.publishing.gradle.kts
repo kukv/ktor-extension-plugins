@@ -1,20 +1,22 @@
-import env.ENV
+import env.EnvConfig
 import env.PropertyKey
+import maven.mavenCentralMetadata
 
 plugins {
-    id("io.github.gradle-nexus.publish-plugin")
     `java-library`
     signing
     `maven-publish`
 }
 
-val env = ENV.factory()
+val envConfig = EnvConfig.factory()
 
 subprojects {
 
-    apply(plugin = "java-library")
-    apply(plugin = "signing")
-    apply(plugin = "maven-publish")
+    apply {
+        plugin("java-library")
+        plugin("signing")
+        plugin("maven-publish")
+    }
 
     tasks {
 
@@ -35,34 +37,7 @@ subprojects {
                     artifact(tasks["sourcesJar"])
 
                     pom {
-
-                        name.set(project.name)
-                        description.set("Library for ktor extension.")
-                        url.set("https://github.com/kukv/ktor-extension-plugins")
-
-                        licenses {
-                            license {
-
-                                name.set("MIT License")
-                                url.set("https://api.github.com/licenses/mit")
-                                description.set("repo")
-                            }
-                        }
-
-                        developers {
-                            developer {
-
-                                id.set("kukv")
-                                name.set("Koki Nonaka")
-                            }
-                        }
-
-                        scm {
-
-                            connection.set("scm:git:git://github.com/kukv/ktor-extension-plugins.git")
-                            developerConnection.set("scm:git:git@github.com:kukv/ktor-extension-plugins.git")
-                            url.set("https://github.com/kukv/ktor-extension-plugins")
-                        }
+                        mavenCentralMetadata(project)
                     }
                 }
             }
@@ -70,25 +45,11 @@ subprojects {
 
         signing {
             useInMemoryPgpKeys(
-                env.propertyOrThrow(PropertyKey.SIGNING_KEY_ID),
-                env.propertyOrThrow(PropertyKey.SIGNING_SECRET),
-                env.propertyOrThrow(PropertyKey.SIGNING_PASSPHRASE)
+                envConfig.propertyOrDefault(PropertyKey.SIGNING_KEY_ID, ""),
+                envConfig.propertyOrDefault(PropertyKey.SIGNING_SECRET, ""),
+                envConfig.propertyOrDefault(PropertyKey.SIGNING_PASSPHRASE, "")
             )
             sign(publishing.publications["mavenJava"])
-        }
-    }
-}
-
-nexusPublishing {
-    repositories {
-
-        sonatype {
-
-            nexusUrl.set(uri(env.propertyOrThrow(PropertyKey.REPOSITORY_URL)))
-            snapshotRepositoryUrl.set(uri(env.propertyOrThrow(PropertyKey.SNAPSHOT_REPOSITORY_URL)))
-            stagingProfileId.set(env.propertyOrThrow(PropertyKey.SONATYPE_STAGING_PROFILE_ID))
-            username.set(env.propertyOrThrow(PropertyKey.OSSRH_USERNAME))
-            password.set(env.propertyOrThrow(PropertyKey.OSSRH_PASSWORD))
         }
     }
 }
