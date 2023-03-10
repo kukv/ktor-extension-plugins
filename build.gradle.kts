@@ -4,10 +4,10 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     alias(libs.plugins.kotlin.jvm)
-    id("jp.kukv.dokka")
-    id("jp.kukv.spotless")
-    id("jp.kukv.nexus-publishing")
-    id("jp.kukv.publishing")
+    id("dokka")
+    id("spotless")
+    id("nexus-publishing")
+    id("signing-publish")
 }
 
 allprojects {
