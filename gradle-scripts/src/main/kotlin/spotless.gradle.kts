@@ -5,15 +5,15 @@ plugins {
 spotless {
     kotlin {
         target("**/*.kt")
-        targetExclude("$buildDir/**/*.kt", "**/bin/**/*.kt", "**/build/**/*.kt")
+        targetExclude("**/build/**/*.kt", "**/bin/**/*.kt")
 
-        ktlint("0.48.2")
+        ktlint()
     }
 
     kotlinGradle {
-        target("*.gradle.kts", "**/*.gradle.kts")
+        target("**/*.gradle.kts")
         targetExclude("**/build/**/*.kts")
 
-        ktlint("0.48.2")
+        ktlint()
     }
 }
