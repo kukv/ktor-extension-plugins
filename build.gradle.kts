@@ -1,5 +1,4 @@
 plugins {
-    kotlin("jvm") version "1.8.10"
     id("dokka")
     id("spotless")
     id("nexus-publishing")
