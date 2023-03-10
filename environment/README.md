@@ -4,6 +4,52 @@ This plugin is used to retrieve preferences from outside of ktor's Application c
 
 ## Installation
 
+See [README](../README.md) at the top.
+
+## How to use
+
+### Installation
+
 ```kotlin
-implementation("com.github.kukv.ktor-extension-plugins:environment:<version>")
+fun Application.module() {
+    install(EnvironmentPlugin) {
+        config = environment.config
+    }
+}
 ```
+
+### Injecting preferences in Class
+
+```kotlin
+object Example : EnvironmentComponent {
+  
+    val foo by inject<String>("example.foo")
+  
+    fun baz() {
+      val bar by injectOrDefault<Int>("example.bar", 0)
+      
+      val decimalList by injectList<BigDecimal>("example.decimalList")
+    }
+}
+```
+
+## Mappable types
+
+The following types are currently available for injection.
+
+- String
+- Byte
+- Short
+- Int
+- Long
+- Float
+- Double
+- Boolean
+- BigInteger
+- BigDecimal
+- java.time.LocalDate
+- java.time.LocalDateTime
+- java.time.LocalTime
+- kotlinx.datetime.LocalDate
+- kotlinx.datetime.LocalDateTime
+- kotlinx.datetime.LocalTime
