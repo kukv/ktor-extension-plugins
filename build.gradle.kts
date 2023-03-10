@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.kotlin.jvm)
     id("jp.kukv.dokka")
     id("jp.kukv.spotless")
+    id("jp.kukv.nexus-publishing")
     id("jp.kukv.publishing")
 }
 
