@@ -3,22 +3,10 @@
 @file:Suppress("DSL_SCOPE_VIOLATION")
 
 plugins {
-    alias(libs.plugins.kotlin.jvm)
+    id("kotlin-module")
 }
 
 dependencies {
-    implementation(kotlin("stdlib"))
-
     implementation(libs.ktor.server.core)
-
     implementation(libs.kotlinx.datetime)
-
-    testImplementation(kotlin("test"))
-    testImplementation(kotlin("test-junit5"))
-}
-
-tasks {
-    withType<Test> {
-        useJUnitPlatform()
-    }
 }
