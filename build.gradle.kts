@@ -1,83 +1,34 @@
-import org.jetbrains.dokka.gradle.DokkaPlugin
+
+import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
 
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
-    alias(libs.plugins.spotless)
-    alias(libs.plugins.kotlin.dokka)
-    `maven-publish`
+    alias(libs.plugins.kotlin.jvm)
+    id("jp.kukv.dokka")
+    id("jp.kukv.spotless")
+    id("jp.kukv.nexus-publishing")
+    id("jp.kukv.publishing")
 }
 
 allprojects {
 
-    group = "com.github.kukv"
-    version = "0.1.0"
+    group = "jp.kukv.ktor-extension-plugins"
+    version = "0.0.2"
 
     repositories {
         mavenCentral()
-        maven("https://jitpack.io")
     }
 }
 
 subprojects {
 
-    apply<JavaLibraryPlugin>()
-    apply<MavenPublishPlugin>()
-    apply<DokkaPlugin>()
-
     tasks {
-        val sourcesJar by creating(Jar::class) {
-            val sourceSets: SourceSetContainer by project
-            archiveClassifier.set("sources")
-            from(sourceSets["main"].allSource)
-        }
-
-        register<Jar>("dokkaHtmlJar") {
-            dependsOn(dokkaHtml)
-            from(dokkaHtml.flatMap { it.outputDirectory })
-            archiveClassifier.set("html-docs")
-        }
-
-        register<Jar>("dokkaJavadocJar") {
-            dependsOn(dokkaJavadoc)
-            from(dokkaJavadoc.flatMap { it.outputDirectory })
-            archiveClassifier.set("javadoc")
-        }
-    }
-
-    afterEvaluate {
-        publishing {
-            publications {
-                create<MavenPublication>("maven") {
-                    groupId = project.group.toString()
-                    artifactId = project.name
-                    version = project.version.toString()
-
-                    from(components["kotlin"])
-
-                    artifact(tasks["sourcesJar"])
-
-                    pom {
-                        name.set("ktor-extension-plugins")
-                        description.set("ktor-extension-plugins")
-                        url.set("https://github.com/kukv/ktor-extension-plugins")
-                    }
-                }
+        withType<KotlinJvmCompile> {
+            kotlinOptions {
+                jvmTarget = "17"
+                apiVersion = "1.8"
+                languageVersion = "1.8"
             }
         }
-    }
-}
-
-spotless {
-    kotlin {
-        target("**/*.kt")
-        targetExclude("$buildDir/**/*.kt", "**/bin/**/*.kt", "**/build/**/*.kt")
-
-        ktlint("0.48.2")
-    }
-
-    kotlinGradle {
-        target("*.gradle.kts", "**/*.gradle.kts")
-
-        ktlint("0.48.2")
     }
 }

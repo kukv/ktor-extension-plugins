@@ -1,9 +1,16 @@
+@file:Suppress("unused")
+
 package jp.kukv.environment
 
 import io.ktor.server.application.createApplicationPlugin
 import io.ktor.server.config.ApplicationConfig
 import io.ktor.util.InternalAPI
 
+/**
+ * Plugin Configuration.
+ *
+ * @property config Ktor environment setting
+ */
 class EnvironmentConfiguration {
     var config: ApplicationConfig? = null
 }

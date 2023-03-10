@@ -1,6 +1,6 @@
 # ktor-extension-plugins
 
-This library allows ktor preferences to be called from anywhere.
+This plugin is used to retrieve preferences from outside of ktor's Application class.
 
 ## Installation
 

@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package jp.kukv.environment
 
 import io.ktor.util.InternalAPI
