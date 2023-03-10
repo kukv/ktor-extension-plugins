@@ -24,7 +24,7 @@ subprojects {
             group = "build"
             dependsOn(classes)
             from(sourceSets["main"].allSource)
-            archiveClassifier.set("sources")
+            archiveClassifier by "sources"
         }
     }
 
