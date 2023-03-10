@@ -3,8 +3,8 @@ plugins {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.10")
-    implementation("com.diffplug.spotless:spotless-plugin-gradle:6.16.0")
-    implementation("org.jetbrains.dokka:dokka-gradle-plugin:1.8.10")
-    implementation("io.github.gradle-nexus:publish-plugin:1.3.0")
+    implementation(libs.kotlin.gradle.plugin)
+    implementation(libs.dokka.gradle.plugin)
+    implementation(libs.spotless.gradle.plugin)
+    implementation(libs.nexus.publish.plugin)
 }
