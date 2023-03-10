@@ -1,12 +1,8 @@
 package maven
 
+import by
 import org.gradle.api.Project
-import org.gradle.api.provider.Property
 import org.gradle.api.publish.maven.MavenPom
-
-private infix fun <T> Property<T>.by(value: T) {
-    set(value)
-}
 
 fun MavenPom.mavenCentralMetadata(project: Project) {
     name by project.name

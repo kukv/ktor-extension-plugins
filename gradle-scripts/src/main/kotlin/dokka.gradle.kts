@@ -24,20 +24,20 @@ subprojects {
             group = "documentation"
             dependsOn(dokkaHtml)
             from(dokkaHtml.flatMap { it.outputDirectory })
-            archiveClassifier.set("html-docs")
+            archiveClassifier by "html-docs"
         }
 
         register<Jar>("dokkaJavadocJar") {
             group = "documentation"
             dependsOn(dokkaJavadoc)
             from(dokkaJavadoc.flatMap { it.outputDirectory })
-            archiveClassifier.set("javadoc")
+            archiveClassifier by "javadoc"
         }
     }
 }
 
 tasks {
     withType<DokkaMultiModuleTask> {
-        moduleName.set("Ktor Extension Plugins")
+        moduleName by "Ktor Extension Plugins"
     }
 }
