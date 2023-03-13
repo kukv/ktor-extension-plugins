@@ -15,7 +15,7 @@ google-devtools-ksp = { id = "com.google.devtools.ksp", version = "1.8.10-1.0.9"
 #####################################################
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version = "1.8.10" }
 dokka-gradle-plugin = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version = "1.8.10" }
-spotless-gradle-plugin = { module = "com.diffplug.spotless:spotless-plugin-gradle", version = "6.16.0" }
+spotless-gradle-plugin = { module = "com.diffplug.spotless:spotless-plugin-gradle", version = "6.17.0" }
 nexus-publish-plugin = { module = "io.github.gradle-nexus:publish-plugin", version = "1.3.0" }
 
 #####################################################
