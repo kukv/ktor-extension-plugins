@@ -59,6 +59,6 @@ kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version 
 #####################################################
 # Logging Libraries
 #####################################################
-logback-classic = { module = "ch.qos.logback:logback-classic", version = "1.4.5" }
+logback-classic = { module = "ch.qos.logback:logback-classic", version = "1.4.6" }
 
 
