@@ -7,7 +7,7 @@ plugins {
 
 allprojects {
     group = "jp.kukv.ktor-extension-plugins"
-    version = "0.0.5"
+    version = "0.0.6"
 
     repositories {
         mavenCentral()
