@@ -13,7 +13,7 @@ changelog:
     - title: Enhancement Updates 💪
       labels:
         - "Type: Enhancement"
-    - title: Breaking Changes 🛠
+    - title: Breaking Changes 🤯
       labels:
         - "Type: Specification Change"
     - title: Bug Fix 💊
