@@ -59,3 +59,15 @@ jobs:
           OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
 
         run: ./gradlew publishToSonatype closeSonatypeStagingRepository
+
+  generate-draft-release-note:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    needs:
+      - publish-staging
+
+    steps:
+      - name: generate draft release note
+        run: gh release create ${{ github.ref_name }} --generate-notes --draft --latest --verify-tag --repo ${{ github.repository }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
