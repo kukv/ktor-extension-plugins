@@ -2,8 +2,10 @@ name: publish-staging
 
 on:
   push:
+    branches:
+      - main
     tags:
-      - [0-9]+.[0-9]+.[0-9]+
+      - '[0-9]+.[0-9]+.[0-9]+'
 
 jobs:
   setup:
