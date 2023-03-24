@@ -59,3 +59,25 @@ jobs:
           OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
 
         run: ./gradlew publishToSonatype closeSonatypeStagingRepository
+
+  create-draft-release-note:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    needs:
+      - publish-staging
+
+      - name: Get previous tag
+        id: pre_tag
+        run: |
+          echo "::set-output name=pre_tag::$(curl -H 'Accept: application/vnd.github.v3+json' -H 'Authorization: token ${{ secrets.GITHUB_TOKEN }}' https://api.github.com/repos/${{ github.repository }}/releases/latest | jq -r .tag_name)"
+
+      - name: create draft release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: ${{ github.ref }}
+          body: |
+            Full Changelog: https://github.com/kukv/${{ github.repository }}/compare/${{ steps.pre_tag.outputs.pre_tag }}...${{ github.ref }}
+          draft: true
