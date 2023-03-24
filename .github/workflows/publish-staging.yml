@@ -3,7 +3,6 @@ name: publish-staging
 on:
   push:
     tags:
-      - v*
 
 jobs:
   setup:
