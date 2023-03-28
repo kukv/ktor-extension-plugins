@@ -20,10 +20,6 @@ import kotlinx.datetime.LocalTime as KLocalTime
 class Environment private constructor(private val delegate: ApplicationConfig) {
 
     @PublishedApi
-    internal fun <T> getTypedPropertiesOrEmptyList(key: String, clazz: KClass<*>): List<T> =
-        getTypedPropertiesOrNull<T>(key, clazz) ?: emptyList()
-
-    @PublishedApi
     internal fun <T> getTypedPropertyOrDefault(key: String, defaultValue: T, clazz: KClass<*>): T =
         getTypedPropertyOrNull<T>(key, clazz) ?: defaultValue
 
