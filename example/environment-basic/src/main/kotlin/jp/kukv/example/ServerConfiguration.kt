@@ -9,19 +9,13 @@ import io.ktor.server.response.respond
 import io.ktor.server.routing.get
 import io.ktor.server.routing.routing
 import jp.kukv.environment.EnvironmentPlugin
-import kotlinx.coroutines.runBlocking
+import jp.kukv.environment.inject
 import kotlinx.serialization.json.Json
-import org.jetbrains.exposed.sql.select
-import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
-import org.koin.ksp.generated.module
-import org.koin.ktor.ext.inject
-import org.koin.ktor.plugin.koin
+import org.slf4j.LoggerFactory
+
+private val log = LoggerFactory.getLogger("example application")
 
 fun Application.configuration() {
-    koin {
-        modules(DIModules().module)
-    }
-
     install(EnvironmentPlugin)
 
     install(ContentNegotiation) {
@@ -33,23 +27,12 @@ fun Application.configuration() {
         )
     }
 
-    val dataSource by inject<ExposedDataSourceProperties>()
-    dataSource.connect()
-
-    runBlocking {
-        init()
-    }
+    val envMode by inject<String>("ktor.environment")
+    log.info("Application Mode - $envMode")
 
     routing {
-        get("/{id}") {
-            val id = call.parameters["id"]?.toInt()!!
-            val name = newSuspendedTransaction {
-                SampleTable
-                    .select { SampleTable.id eq id }
-                    .firstOrNull()
-                    ?.let { it[SampleTable.name] } ?: RuntimeException("not found.")
-            }
-            call.respond(name)
+        get("/purchase_history") {
+            call.respond(PurchaseHistoryResponse.factory())
         }
     }
 }
