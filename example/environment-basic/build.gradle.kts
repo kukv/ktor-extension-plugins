@@ -29,5 +29,5 @@ dependencies {
 
     implementation(libs.logback.classic)
 
-    implementation("jp.kukv.ktor-extension-plugins:environment:0.0.7")
+    implementation("jp.kukv.ktor-extension-plugins:environment:0.1.0")
 }
