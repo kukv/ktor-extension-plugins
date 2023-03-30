@@ -2,7 +2,7 @@
 #####################################################
 # jetbrains plugin
 #####################################################
-kotlin-plugin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version = "1.8.10" }
+kotlin-plugin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version = "1.8.20" }
 
 [libraries]
 #####################################################
