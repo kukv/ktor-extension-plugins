@@ -50,6 +50,8 @@ The following types are currently available for injection.
 - java.time.LocalDate
 - java.time.LocalDateTime
 - java.time.LocalTime
-- kotlinx.datetime.LocalDate
-- kotlinx.datetime.LocalDateTime
-- kotlinx.datetime.LocalTime
+- kotlinx.datetime.LocalDate (※1)
+- kotlinx.datetime.LocalDateTime (※1)
+- kotlinx.datetime.LocalTime (※1)
+
+※1 To use them, add [kotlinx-datetime](https://github.com/Kotlin/kotlinx-datetime) as a dependency.
