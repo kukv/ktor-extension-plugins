@@ -1,4 +1,4 @@
-# ktor-extension-plugins
+# Environment
 
 This plugin is used to retrieve preferences from outside of ktor's Application class.
 
