@@ -1,21 +1,17 @@
-// なぜかサブプロジェクトの方はファイル自体にアノテーションを付与してあげないとビルドできなくなってしまう
-// https://github.com/gradle/gradle/issues/23784
-@file:Suppress("DSL_SCOPE_VIOLATION")
-
 plugins {
     id("kotlin-module")
-    alias(libs.plugins.kotlin.plugin.serialization)
+    kotlin("plugin.serialization") version "1.8.20"
 }
 
 dependencies {
-    implementation(libs.ktor.serialization.kotlinx.json)
-    implementation(libs.ktor.server.core)
-    implementation(libs.ktor.server.cio)
-    implementation(libs.ktor.server.content.negotiation)
+    implementation("io.ktor:ktor-serialization-kotlinx-json:2.2.4")
+    implementation("io.ktor:ktor-server-core:2.2.4")
+    implementation("io.ktor:ktor-server-cio:2.2.4")
+    implementation("io.ktor:ktor-server-content-negotiation:2.2.4")
 
-    implementation(libs.logback.classic)
+    implementation("ch.qos.logback:logback-classic:1.4.6")
 
-    implementation(libs.kotlinx.datetime)
+    implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
 
     implementation("jp.kukv.ktor-extension-plugins:environment:0.1.0")
 }

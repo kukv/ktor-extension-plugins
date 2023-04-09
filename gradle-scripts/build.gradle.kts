@@ -2,9 +2,13 @@ plugins {
     `kotlin-dsl`
 }
 
+repositories {
+    gradlePluginPortal()
+}
+
 dependencies {
-    implementation(libs.kotlin.gradle.plugin)
-    implementation(libs.dokka.gradle.plugin)
-    implementation(libs.spotless.gradle.plugin)
-    implementation(libs.nexus.publish.plugin)
+    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.10")
+    implementation("org.jetbrains.dokka:dokka-gradle-plugin:1.8.10")
+    implementation("com.diffplug.spotless:spotless-plugin-gradle:6.17.0")
+    implementation("io.github.gradle-nexus:publish-plugin:1.3.0")
 }

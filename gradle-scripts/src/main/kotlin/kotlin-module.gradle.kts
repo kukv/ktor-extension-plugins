@@ -12,6 +12,12 @@ dependencies {
     testImplementation(kotlin("test-junit5"))
 }
 
+kotlin {
+    jvmToolchain {
+        languageVersion by JavaLanguageVersion.of("17")
+    }
+}
+
 tasks {
     withType<KotlinJvmCompile> {
         kotlinOptions {
