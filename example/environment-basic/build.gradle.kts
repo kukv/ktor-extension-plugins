@@ -10,7 +10,7 @@ dependencies {
     implementation("io.ktor:ktor-server-cio:2.3.2")
     implementation("io.ktor:ktor-server-content-negotiation:2.3.2")
 
-    implementation("ch.qos.logback:logback-classic:1.4.8")
+    implementation("ch.qos.logback:logback-classic:1.4.11")
 
     implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
 
