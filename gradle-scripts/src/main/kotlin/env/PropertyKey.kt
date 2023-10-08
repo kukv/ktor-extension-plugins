@@ -1,7 +1,6 @@
 package env
 
 enum class PropertyKey {
-
     SIGNING_KEY_ID,
     SIGNING_SECRET,
     SIGNING_PASSPHRASE,

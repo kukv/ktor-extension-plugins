@@ -4,8 +4,9 @@ package jp.kukv.environment
 
 import io.ktor.server.application.createApplicationPlugin
 
-val EnvironmentPlugin = createApplicationPlugin(name = "Environment") {
+val EnvironmentPlugin =
+    createApplicationPlugin(name = "Environment") {
 
-    val environment = Environment.init(applicationConfig)
-    EnvironmentContext.register(environment)
-}
+        val environment = Environment.init(applicationConfig)
+        EnvironmentContext.register(environment)
+    }
