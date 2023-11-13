@@ -17,7 +17,7 @@ dependencies {
 
     implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.1")
 
-    implementation("jp.kukv.ktor-extension-plugins:environment:0.1.2")
+    implementation("jp.kukv.ktor-extension-plugins:environment:0.1.3")
 }
 
 application {
