@@ -1,8 +1,9 @@
 plugins {
-    id("dokka")
-    id("spotless")
-    id("nexus-publishing")
-    id("signing-publish")
+    id("jp.kukv.gradle.documentation.dokka")
+    id("jp.kukv.gradle.format.spotless-for-kotlin")
+    id("jp.kukv.gradle.format.spotless-for-kotlin-dsl")
+    id("jp.kukv.gradle.publish.nexus-publishing")
+    id("jp.kukv.gradle.publish.signing-publish")
 }
 
 allprojects {

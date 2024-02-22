@@ -1,4 +1,4 @@
-package env
+package jp.kukv.env
 
 enum class PropertyKey {
     SIGNING_KEY_ID,

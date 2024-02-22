@@ -1,6 +1,6 @@
-package maven
+package jp.kukv.gradle.publish.maven
 
-import by
+import jp.kukv._extensions.by
 import org.gradle.api.Project
 import org.gradle.api.publish.maven.MavenPom
 

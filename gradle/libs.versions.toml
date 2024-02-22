@@ -1,0 +1,13 @@
+[versions]
+java = "21"
+kotlin_api = "1.8"
+
+[plugins]
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version = { strictly = "1.9.22" } }
+
+[libraries]
+kotlin-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version = { strictly = "0.5.0" } }
+
+ktor-server-core = { module = "io.ktor:ktor-server-core", version = { strictly = "2.3.8" } }
+
+logback-classic = { module = "ch.qos.logback:logback-classic", version = { strictly = "1.4.14" } }

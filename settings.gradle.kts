@@ -1,6 +1,13 @@
-rootProject.name = "ktor-extension-plugins"
+pluginManagement {
+    repositories {
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
 
 includeBuild("gradle-scripts")
 includeBuild("example")
+
+rootProject.name = "ktor-extension-plugins"
 
 include(":environment")
