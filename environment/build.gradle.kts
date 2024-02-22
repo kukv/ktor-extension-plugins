@@ -1,35 +1,28 @@
+import jp.kukv._extensions.by
 import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
 
 plugins {
-    kotlin("jvm") version "1.9.22"
+    alias(libs.plugins.kotlin.jvm)
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.5.0")
-
-    implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.8")
-
-    implementation("io.ktor:ktor-server-core:2.3.8")
-    implementation("io.ktor:ktor-server-cio:2.3.8")
-    implementation("io.ktor:ktor-server-content-negotiation:2.3.8")
-
-    implementation("ch.qos.logback:logback-classic:1.4.14")
-
-    implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.5.0")
+    implementation(libs.kotlin.datetime)
+    implementation(libs.ktor.server.core)
+    implementation(libs.logback.classic)
 }
 
 kotlin {
     jvmToolchain {
-        languageVersion.set(JavaLanguageVersion.of("17"))
+        languageVersion by JavaLanguageVersion.of(libs.versions.java.get())
     }
 }
 
 tasks {
     withType<KotlinJvmCompile> {
         kotlinOptions {
-            jvmTarget = "17"
-            apiVersion = "1.8"
-            languageVersion = "1.8"
+            jvmTarget = libs.versions.java.get()
+            apiVersion = libs.versions.kotlin.api.get()
+            languageVersion = libs.versions.kotlin.api.get()
         }
     }
 

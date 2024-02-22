@@ -83,5 +83,5 @@ jobs:
       - name: Grant Execute Permission to gradlew
         run: chmod +x gradlew
 
-      - name: Check with Gradle
+      - name: Build with Gradle
         run: ./gradlew build

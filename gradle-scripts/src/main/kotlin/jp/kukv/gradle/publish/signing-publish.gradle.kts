@@ -1,21 +1,22 @@
-import env.EnvConfig
-import env.PropertyKey
-import maven.mavenCentralMetadata
+package jp.kukv.gradle.publish
+
+import jp.kukv._extensions.by
+import jp.kukv.env.Properties
+import jp.kukv.env.PropertyKey
+import jp.kukv.gradle.publish.maven.mavenCentralMetadata
 
 plugins {
     `java-library`
-    signing
     `maven-publish`
+    signing
 }
-
-val envConfig = EnvConfig.factory()
 
 subprojects {
 
     apply {
         plugin("java-library")
-        plugin("signing")
         plugin("maven-publish")
+        plugin("signing")
     }
 
     tasks {
@@ -44,10 +45,11 @@ subprojects {
         }
 
         signing {
+            val properties = Properties.factory()
             useInMemoryPgpKeys(
-                envConfig.propertyOrDefault(PropertyKey.SIGNING_KEY_ID, ""),
-                envConfig.propertyOrDefault(PropertyKey.SIGNING_SECRET, ""),
-                envConfig.propertyOrDefault(PropertyKey.SIGNING_PASSPHRASE, "")
+                properties.find(PropertyKey.SIGNING_KEY_ID, ""),
+                properties.find(PropertyKey.SIGNING_SECRET, ""),
+                properties.find(PropertyKey.SIGNING_PASSPHRASE, "")
             )
             sign(publishing.publications["mavenJava"])
         }
