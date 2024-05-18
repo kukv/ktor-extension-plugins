@@ -15,7 +15,7 @@ dependencies {
 
     implementation("ch.qos.logback:logback-classic:1.5.6")
 
-    implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.5.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.6.0")
 
     implementation("jp.kukv.ktor-extension-plugins:environment:0.1.3")
 }
