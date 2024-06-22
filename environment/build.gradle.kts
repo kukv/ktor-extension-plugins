@@ -7,11 +7,11 @@ plugins {
 dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.6.0")
 
-    implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.11")
+    implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.12")
 
-    implementation("io.ktor:ktor-server-core:2.3.11")
-    implementation("io.ktor:ktor-server-cio:2.3.11")
-    implementation("io.ktor:ktor-server-content-negotiation:2.3.11")
+    implementation("io.ktor:ktor-server-core:2.3.12")
+    implementation("io.ktor:ktor-server-cio:2.3.12")
+    implementation("io.ktor:ktor-server-content-negotiation:2.3.12")
 
     implementation("ch.qos.logback:logback-classic:1.5.6")
 
